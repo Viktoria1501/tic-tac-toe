@@ -1,13 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">tic tac toe</string>
+    <string name="app_name">Tic Tac Toe</string>
 
     <string name="homeTile">Tic Tac Toe</string>
     <string name="playButton">Play</string>
     <string name="playAIButton">AI</string>
-    
+
     <string name="PlayerSetupTitel">Enter Your Name</string>
-    <string name="Label1">Player1</string>
-    <string name="Label2">Player2</string>
+    <string name="Label1">Player 1</string>
+    <string name="Label2">Player 2</string>
     <string name="submitButton">Submit Names</string>
     <string name="NameHint">Enter Your Name</string>
+
+    <string name="chooseBoard0">Choose the board</string>
+    <string name="chooseBoard1">3x3</string>
+    <string name="chooseBoard2">5x5</string>
+    <!-- <string name="chooseBoard3">7x7</string> -->
+
+    <string name="AiName">AI</string>
+
+    <string name="playAgainButton">Play Again</string>
+    <string name="homeButton">Home</string>
+    <string name="threeByThreeBtn">3x3</string>
+    <string name="chooseBoardSize">Choose Board Size</string>
 </resources>

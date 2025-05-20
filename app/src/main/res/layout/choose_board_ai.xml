@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".chooseBoardAI"
+    android:background="#D7CCC8">
+
+    <TextView
+        android:id="@+id/textView5AI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="188dp"
+        android:text="@string/chooseBoard0"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button4AI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/red_button"
+        android:onClick="submitButtonAI3x3Click"
+        android:text="@string/chooseBoard1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5AI" />
+
+    <Button
+        android:id="@+id/button5AI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/red_button"
+        android:text="@string/chooseBoard2"
+        app:layout_constraintStart_toEndOf="@+id/button4AI"
+        app:layout_constraintTop_toBottomOf="@+id/textView5AI" />
+
+    <!--    <Button-->
+<!--        android:id="@+id/button6AI"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="172dp"-->
+<!--        android:background="@drawable/red_button"-->
+<!--        android:text="@string/chooseBoard3"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.462"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/button5AI"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView5AI" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>

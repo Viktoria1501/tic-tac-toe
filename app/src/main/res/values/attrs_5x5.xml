@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TicTacToyBoard_5x5">
+        <attr name="boardColor_5x5" format= "color"/>
+        <attr name="XColor_5x5" format = "color"/>
+        <attr name="OColor_5x5" format = "color"/>
+        <attr name="winningLineColor_5x5" format = "color"/>
+    </declare-styleable>
+</resources>
