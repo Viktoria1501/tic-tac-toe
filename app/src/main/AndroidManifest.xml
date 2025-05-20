@@ -22,32 +22,15 @@
             android:name=".GameDisplay_3x3"
             android:exported="false" />
         <activity
-            android:name=".Board3x3"
-            android:exported="false" />
-        <activity
-            android:name=".Board_3x3"
-            android:exported="false" />
-        <activity
-            android:name=".player_setupAI"
+            android:name=".chooseBoard"
             android:exported="false" />
         <activity
             android:name=".chooseBoardAI"
             android:exported="false" />
         <activity
-            android:name=".ActivityForButton6"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityForButton5"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityForButton4"
-            android:exported="false" />
-        <activity
-            android:name=".chooseBoard"
-            android:exported="false" />
-        <activity
             android:name=".PlayerSetup"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

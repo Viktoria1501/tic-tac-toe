@@ -82,7 +82,7 @@ public class TicTacToyBoardAI_3x3 extends View {
         drawMarkers(canvas);
 
         // Draw winning line if game is won
-        if (winningLineVisible) {
+        if (winningLineVisible && gameLogic.getWinType() != null) {
             drawWinningLine(canvas);
         }
     }
@@ -218,7 +218,8 @@ public class TicTacToyBoardAI_3x3 extends View {
 
                 // Check if the game is over
                 if (gameLogic.checkForWinOrTie()) {
-                    winningLineVisible = true;
+                    // Only set winning line visible if there's an actual winner (not a tie)
+                    winningLineVisible = (gameLogic.getWinType() != null);
                     invalidate();
                 } else {
                     // Switch to next player
@@ -244,7 +245,8 @@ public class TicTacToyBoardAI_3x3 extends View {
         if (gameLogic.makeAIMove()) {
             // Check if game is over after AI move
             if (gameLogic.checkForWinOrTie()) {
-                winningLineVisible = true;
+                // Only set winning line visible if there's an actual winner (not a tie)
+                winningLineVisible = (gameLogic.getWinType() != null);
             } else {
                 gameLogic.switchPlayer();
             }
