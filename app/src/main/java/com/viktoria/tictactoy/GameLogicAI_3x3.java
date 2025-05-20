@@ -90,7 +90,7 @@ public class GameLogicAI_3x3 {
      *
      * @return true if game is over (win or tie), false otherwise
      */
-    public boolean checkForWinOrTie() {
+    public boolean checkForWin() {
         // Check for winner
         if (checkForWinner()) {
             gameOver = true;
@@ -99,7 +99,10 @@ public class GameLogicAI_3x3 {
             return true;
         }
 
-        // Check for tie
+        return false;
+    }
+
+    public boolean checkForTie(){
         if (isBoardFull()) {
             gameOver = true;
             showGameOver("Tie Game!!!");
@@ -124,7 +127,6 @@ public class GameLogicAI_3x3 {
                 return true;
             }
         }
-
         // Check columns
         for (int c = 0; c < 3; c++) {
             if (gameBoard[0][c] != EMPTY &&
@@ -258,7 +260,6 @@ public class GameLogicAI_3x3 {
 
         return false;
     }
-
     /**
      * Check if this is the first move of the game
      * @return true if the board is empty except for one player move
@@ -382,7 +383,6 @@ public class GameLogicAI_3x3 {
                 if (board[r][0] == PLAYER) return -10;
             }
         }
-
         // Check columns for win
         for (int c = 0; c < 3; c++) {
             if (board[0][c] != EMPTY && board[0][c] == board[1][c] && board[0][c] == board[2][c]) {

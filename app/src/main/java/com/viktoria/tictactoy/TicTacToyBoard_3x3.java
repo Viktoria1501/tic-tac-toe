@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-
 public class TicTacToyBoard_3x3 extends View {
     private final int boardColor;
     private final int XColor;
@@ -25,7 +23,7 @@ public class TicTacToyBoard_3x3 extends View {
     private final GameLogic_3x3 game;
     private int cellSize = 0;
 
-    public TicTacToyBoard_3x3(Context context, @Nullable AttributeSet attrs) {
+    public TicTacToyBoard_3x3(Context context, AttributeSet attrs) {
         super(context, attrs);
         game = new GameLogic_3x3();
 
@@ -59,9 +57,9 @@ public class TicTacToyBoard_3x3 extends View {
         drawGameBoard(canvas);
         drawMarkers(canvas);
 
-        if (winningLine){
+        if (winningLine) {
             paint.setColor(winningLineColor);
-            drawWinningLIne(canvas);
+            drawWinningLine(canvas);
         }
     }
 
@@ -74,13 +72,11 @@ public class TicTacToyBoard_3x3 extends View {
         int action = event.getAction();
 
         if (action == MotionEvent.ACTION_DOWN) {
-            // Only proceed if cellSize is valid (board has been measured)
             if (cellSize <= 0) return false;
 
             int row = (int) Math.ceil(y / cellSize);
             int col = (int) Math.ceil(x / cellSize);
 
-            // Enforce bounds checking for row/col values
             if (row < 1) row = 1;
             if (row > 3) row = 3;
             if (col < 1) col = 1;
@@ -90,10 +86,14 @@ public class TicTacToyBoard_3x3 extends View {
                 if (game.updateGameBoard_3x3(row, col)) {
                     invalidate();
                     if (game.winnerCheck()) {
-                        winningLine = true;
+                        // Only set winningLine if it's not a tie
+                        if (!game.isTie() && game.getWinType()[2] != 0) {
+                            winningLine = true;
+                        }
                         invalidate();
                     }
-                    // updating the players turn
+
+                    // update player turn
                     if (game.getPlayer() % 2 == 0) {
                         game.setPlayer(game.getPlayer() - 1);
                     } else {
@@ -137,16 +137,16 @@ public class TicTacToyBoard_3x3 extends View {
         paint.setColor(XColor);
         paint.setStrokeWidth(16);
 
-        canvas.drawLine((float)((col + 1) * cellSize - cellSize * 0.2),
-                (float)(row * cellSize + cellSize * 0.2),
-                (float)(col * cellSize + cellSize * 0.2),
-                (float)((row + 1) * cellSize - cellSize * 0.2),
+        canvas.drawLine((float) ((col + 1) * cellSize - cellSize * 0.2),
+                (float) (row * cellSize + cellSize * 0.2),
+                (float) (col * cellSize + cellSize * 0.2),
+                (float) ((row + 1) * cellSize - cellSize * 0.2),
                 paint);
 
-        canvas.drawLine((float)(col * cellSize + cellSize * 0.2),
-                (float)(row * cellSize + cellSize * 0.2),
-                (float)((col + 1) * cellSize - cellSize * 0.2),
-                (float)((row + 1) * cellSize - cellSize * 0.2),
+        canvas.drawLine((float) (col * cellSize + cellSize * 0.2),
+                (float) (row * cellSize + cellSize * 0.2),
+                (float) ((col + 1) * cellSize - cellSize * 0.2),
+                (float) ((row + 1) * cellSize - cellSize * 0.2),
                 paint);
     }
 
@@ -154,46 +154,47 @@ public class TicTacToyBoard_3x3 extends View {
         paint.setColor(OColor);
         paint.setStrokeWidth(16);
 
-        canvas.drawOval((float)(col * cellSize + cellSize * 0.2),
-                (float)(row * cellSize + cellSize * 0.2),
-                (float)((col * cellSize + cellSize) - cellSize * 0.2),
-                (float)((row * cellSize + cellSize) - cellSize * 0.2),
+        canvas.drawOval((float) (col * cellSize + cellSize * 0.2),
+                (float) (row * cellSize + cellSize * 0.2),
+                (float) ((col * cellSize + cellSize) - cellSize * 0.2),
+                (float) ((row * cellSize + cellSize) - cellSize * 0.2),
                 paint);
     }
 
-    private void drawHorizontalLine(Canvas canvas, int row, int col){
-        canvas.drawLine(col,row * cellSize + (float)cellSize / 2,
-                cellSize * 3,row * cellSize + (float)cellSize/2,
+    private void drawHorizontalLine(Canvas canvas, int row, int col) {
+        canvas.drawLine(col, row * cellSize + (float) cellSize / 2,
+                cellSize * 3, row * cellSize + (float) cellSize / 2,
                 paint);
     }
 
-    private void drawVerticalLine(Canvas canvas, int row, int col){
-        canvas.drawLine(col * cellSize + (float)cellSize/2,row,
-                col * cellSize + (float)cellSize / 2, cellSize * 3,
+    private void drawVerticalLine(Canvas canvas, int row, int col) {
+        canvas.drawLine(col * cellSize + (float) cellSize / 2, row,
+                col * cellSize + (float) cellSize / 2, cellSize * 3,
                 paint);
     }
 
-    private void drawDiagonalLinePos(Canvas canvas){
-        canvas.drawLine(0,cellSize * 3,
-                cellSize * 3,0,
-        paint);
-    }
-    private void drawDiagonalLineNeg(Canvas canvas){
-        canvas.drawLine(0,0,
-                cellSize * 3,cellSize * 3,
+    private void drawDiagonalLinePos(Canvas canvas) {
+        canvas.drawLine(0, cellSize * 3,
+                cellSize * 3, 0,
                 paint);
     }
 
-    private void drawWinningLIne(Canvas canvas){
+    private void drawDiagonalLineNeg(Canvas canvas) {
+        canvas.drawLine(0, 0,
+                cellSize * 3, cellSize * 3,
+                paint);
+    }
+
+    private void drawWinningLine(Canvas canvas) {
         int row = game.getWinType()[0];
         int col = game.getWinType()[1];
 
-        switch (game.getWinType()[2]){
+        switch (game.getWinType()[2]) {
             case 1:
                 drawHorizontalLine(canvas, row, col);
                 break;
             case 2:
-                drawVerticalLine(canvas, row , col);
+                drawVerticalLine(canvas, row, col);
                 break;
             case 3:
                 drawDiagonalLineNeg(canvas);

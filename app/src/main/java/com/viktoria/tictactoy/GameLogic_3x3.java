@@ -1,3 +1,4 @@
+
 package com.viktoria.tictactoy;
 
 import android.view.View;
@@ -141,7 +142,6 @@ public class GameLogic_3x3 {
                 }
             }
         }
-
         if (isWinner) {
             String winnerName = (player == 1) ? player1Name : player2Name;
             playAgainBTN_3x3.setVisibility(View.VISIBLE);
@@ -152,7 +152,7 @@ public class GameLogic_3x3 {
             playAgainBTN_3x3.setVisibility(View.VISIBLE);
             homeBTN_3x3.setVisibility(View.VISIBLE);
             playerTurn.setText("Tie Game!!!");
-            return true;
+            return false;
         } else {
             return false;
         }
@@ -166,5 +166,21 @@ public class GameLogic_3x3 {
         homeBTN_3x3.setVisibility(View.GONE);
 
         playerTurn.setText(player1Name + "'s Turn");
+    }
+
+    public boolean isTie() {
+        if (winType[2] != -1) {
+            return false;
+        }
+
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                if (gameBoard_3x3[r][c] == 0) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

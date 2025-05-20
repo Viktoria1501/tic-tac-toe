@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-
 import com.viktoria.tictactoy.GameLogicAI_3x3;
 import com.viktoria.tictactoy.R;
 
@@ -36,7 +34,7 @@ public class TicTacToyBoardAI_3x3 extends View {
     /**
      * Constructor used when creating view from XML
      */
-    public TicTacToyBoardAI_3x3(Context context, @Nullable AttributeSet attrs) {
+    public TicTacToyBoardAI_3x3(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         gameLogic = new GameLogicAI_3x3();
@@ -82,7 +80,7 @@ public class TicTacToyBoardAI_3x3 extends View {
         drawMarkers(canvas);
 
         // Draw winning line if game is won
-        if (winningLineVisible && gameLogic.getWinType() != null) {
+        if (winningLineVisible) {
             drawWinningLine(canvas);
         }
     }
@@ -131,7 +129,6 @@ public class TicTacToyBoardAI_3x3 extends View {
                 paint
         );
     }
-
     /**
      * Draw an O marker at the specified cell
      */
@@ -217,9 +214,10 @@ public class TicTacToyBoardAI_3x3 extends View {
                 invalidate(); // Redraw the board
 
                 // Check if the game is over
-                if (gameLogic.checkForWinOrTie()) {
-                    // Only set winning line visible if there's an actual winner (not a tie)
-                    winningLineVisible = (gameLogic.getWinType() != null);
+                if (gameLogic.checkForWin()) {
+                    winningLineVisible = true;
+                    invalidate();
+                } else if (gameLogic.checkForTie()) {
                     invalidate();
                 } else {
                     // Switch to next player
@@ -244,16 +242,16 @@ public class TicTacToyBoardAI_3x3 extends View {
         // Use the minimax algorithm in GameLogicAI_3x3
         if (gameLogic.makeAIMove()) {
             // Check if game is over after AI move
-            if (gameLogic.checkForWinOrTie()) {
-                // Only set winning line visible if there's an actual winner (not a tie)
-                winningLineVisible = (gameLogic.getWinType() != null);
+            if (gameLogic.checkForWin()) {
+                winningLineVisible = true;
+            } else if (gameLogic.checkForTie()) {
+                invalidate();
             } else {
                 gameLogic.switchPlayer();
             }
             invalidate();
         }
     }
-
     /**
      * Draw the current game markers (X's and O's)
      */
