@@ -1,12 +1,11 @@
 package com.viktoria.tictactoy;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class GameDisplayAI_5x5 extends AppCompatActivity {
 
@@ -16,5 +15,13 @@ public class GameDisplayAI_5x5 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.game_display_ai5x5);
 
+    }
+
+    public void playAgainButtonClick_5x5AI(View view){
+        // do fancy stuff
+    }
+    public void homeButtonClick_5x5AI(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
