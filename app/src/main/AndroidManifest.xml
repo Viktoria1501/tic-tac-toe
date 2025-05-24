@@ -13,6 +13,9 @@
         android:theme="@style/Theme.TicTacToy"
         tools:targetApi="31">
         <activity
+            android:name=".GameDisplayAI_5x5"
+            android:exported="false" />
+        <activity
             android:name=".GameDisplayAI_3x3"
             android:exported="false" />
         <activity
@@ -30,7 +33,6 @@
         <activity
             android:name=".PlayerSetup"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">

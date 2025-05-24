@@ -40,6 +40,7 @@
         android:layout_marginStart="72dp"
         android:layout_marginTop="180dp"
         android:background="@drawable/red_button"
+        android:onClick="submitButtonAI5x5Click"
         android:text="@string/chooseBoard2"
         app:layout_constraintStart_toEndOf="@+id/button4AI"
         app:layout_constraintTop_toBottomOf="@+id/textView5AI" />

@@ -56,4 +56,18 @@ public class chooseBoardAI extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    public void submitButtonAI5x5Click(View view){
+        System.out.println("Starting GameDisplayAI_5x5 activity");
+
+        try {
+            // Start the game activity with hardcoded player names
+            Intent intent = new Intent(chooseBoardAI.this, GameDisplayAI_5x5.class);
+            intent.putExtra("PLAYER_NAMES", new String[]{playerName, aiName});
+            startActivity(intent);
+        } catch (Exception e) {
+            // Log any errors
+            System.err.println("Error starting GameDisplayAI_5x5: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
