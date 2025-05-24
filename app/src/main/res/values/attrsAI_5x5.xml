@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TicTacToyBoardAI_5x5">
+        <attr name="boardColorAI_5x5" format="color" />
+        <attr name="XColorAI_5x5" format="color" />
+        <attr name="OColorAI_5x5" format="color" />
+        <attr name="winningLineColorAI_5x5" format="color" />
+    </declare-styleable>
+</resources>
