@@ -35,8 +35,7 @@ public class chooseBoard extends AppCompatActivity {
 
     public void submitButton5x5Click(View view){
         Intent intent = new Intent(this, GameDisplay_5x5.class);
-        intent.putExtra("PLAYER_1_NAME", player1Name);
-        intent.putExtra("PLAYER_2_NAME", player2Name);
+        intent.putExtra("PLAYER_NAMES_5x5", new String[]{player1Name, player2Name});
         startActivity(intent);
     }
 }

@@ -76,6 +76,8 @@ public class GameDisplay_5x5 extends AppCompatActivity {
                 public void onClick(View v) {
                     Log.d(TAG, "Play Again button clicked");
                     resetGame();
+                    playAgainButton.setVisibility(View.GONE);
+                    homeButton.setVisibility(View.GONE);
                 }
             });
             // Initially hide the button (will show after game ends)
@@ -89,6 +91,8 @@ public class GameDisplay_5x5 extends AppCompatActivity {
                 public void onClick(View v) {
                     Log.d(TAG, "Home button clicked");
                     homeButtonClick_5x5();
+                    playAgainButton.setVisibility(View.GONE);
+                    homeButton.setVisibility(View.GONE);
                 }
             });
             // Initially hide the button (will show after game ends)

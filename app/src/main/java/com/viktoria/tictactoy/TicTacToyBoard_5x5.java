@@ -26,6 +26,8 @@ public class TicTacToyBoard_5x5 extends View {
     private final Paint paint_5x5 = new Paint();
     private final GameLogic_5x5 game_5x5;
     private int cellSize_5x5;
+    private int[] winType_5x5; // [row, col, type]
+    private int startRow, startCol, endRow, endCol;
 
     public TicTacToyBoard_5x5(Context context, @Nullable AttributeSet attrs_5x5) {
         super(context, attrs_5x5);
@@ -61,7 +63,6 @@ public class TicTacToyBoard_5x5 extends View {
         drawMarkers_5x5(canvas);
 
         if (winningLine_5x5) {
-            paint_5x5.setColor(winningLineColor_5x5);
             drawWinningLine_5x5(canvas);
         }
     }
@@ -161,61 +162,24 @@ public class TicTacToyBoard_5x5 extends View {
         canvas.drawOval(left, top, right, bottom, paint_5x5);
     }
 
-    private void drawHorizontalLine_5x5(Canvas canvas, int row, int col) {
-        canvas.drawLine(col * cellSize_5x5,
-                (row + 0.5f) * cellSize_5x5,
-                (col + 5) * cellSize_5x5,  // changed from +4 to +5 for 5 cells
-                (row + 0.5f) * cellSize_5x5,
-                paint_5x5);
-    }
-
-    private void drawVerticalLine_5x5(Canvas canvas, int row, int col) {
-        canvas.drawLine((col + 0.5f) * cellSize_5x5,
-                row * cellSize_5x5,
-                (col + 0.5f) * cellSize_5x5,
-                (row + 5) * cellSize_5x5, // changed from +4 to +5 for 5 cells
-                paint_5x5);
-    }
-
-    private void drawDiagonalLineNeg_5x5(Canvas canvas, int row, int col) {
-        // top-left to bottom-right diagonal over 5 cells
-        canvas.drawLine(col * cellSize_5x5,
-                row * cellSize_5x5,
-                (col + 5) * cellSize_5x5,
-                (row + 5) * cellSize_5x5,
-                paint_5x5);
-    }
-
-    private void drawDiagonalLinePos_5x5(Canvas canvas, int row, int col) {
-        // bottom-left to top-right diagonal over 5 cells
-        canvas.drawLine(col * cellSize_5x5,
-                (row + 5) * cellSize_5x5,
-                (col + 5) * cellSize_5x5,
-                row * cellSize_5x5,
-                paint_5x5);
-    }
-
-
     private void drawWinningLine_5x5(Canvas canvas) {
-        int row = game_5x5.getWinType()[0];
-        int col = game_5x5.getWinType()[1];
-        int type = game_5x5.getWinType()[2];
+        if (game_5x5.getWinType() != null) {
+            paint_5x5.setColor(winningLineColor_5x5);
+            paint_5x5.setStrokeWidth(20);
 
-        Log.d(TAG, "Drawing winning line: row=" + row + ", col=" + col + ", type=" + type);
+            int[] winCoords = game_5x5.getWinningCoords(); // [startRow, startCol, endRow, endCol]
 
-        switch (type) {
-            case 1:
-                drawHorizontalLine_5x5(canvas, row, col);
-                break;
-            case 2:
-                drawVerticalLine_5x5(canvas, row, col);
-                break;
-            case 3:
-                drawDiagonalLineNeg_5x5(canvas, row, col);
-                break;
-            case 4:
-                drawDiagonalLinePos_5x5(canvas, row, col);
-                break;
+            int startRow = winCoords[0];
+            int startCol = winCoords[1];
+            int endRow = winCoords[2];
+            int endCol = winCoords[3];
+
+            float startX = startCol * cellSize_5x5 + cellSize_5x5 * 0.5f;
+            float startY = startRow * cellSize_5x5 + cellSize_5x5 * 0.5f;
+            float endX = endCol * cellSize_5x5 + cellSize_5x5 * 0.5f;
+            float endY = endRow * cellSize_5x5 + cellSize_5x5 * 0.5f;
+
+            canvas.drawLine(startX, startY, endX, endY, paint_5x5);
         }
     }
 
@@ -229,5 +193,9 @@ public class TicTacToyBoard_5x5 extends View {
     public void resetGame_5x5() {
         game_5x5.resetGame_5x5();
         winningLine_5x5 = false;
+    }
+
+    public int[] getWinningCoords() {
+        return new int[]{startRow, startCol, endRow, endCol};
     }
 }

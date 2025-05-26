@@ -1,9 +1,13 @@
 package com.viktoria.tictactoy;
 
+import static android.content.Intent.getIntent;
+
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
+
 
 public class GameLogic_5x5 {
     private static final String TAG = "GameLogic_5x5";
@@ -18,11 +22,15 @@ public class GameLogic_5x5 {
 
     // 1st element --> row, 2nd element --> col, 3rd element --> line type
     private int[] winType = {-1, -1, -1};
+    private int[] winCoords = null;  // Stores {startRow, startCol, endRow, endCol}
+
 
     GameLogic_5x5() {
         gameBoard_5x5 = new int[5][5];
         resetGame_5x5();
     }
+
+
 
     public boolean updateGameBoard(int row, int col) {
         // Bounds checking to prevent crashes
@@ -30,6 +38,7 @@ public class GameLogic_5x5 {
             Log.e(TAG, "Invalid position: row=" + row + ", col=" + col);
             return false;
         }
+
 
         if (gameBoard_5x5[row - 1][col - 1] == 0) {
             gameBoard_5x5[row - 1][col - 1] = player_5x5;
