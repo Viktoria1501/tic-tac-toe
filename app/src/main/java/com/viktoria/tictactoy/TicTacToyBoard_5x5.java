@@ -26,8 +26,6 @@ public class TicTacToyBoard_5x5 extends View {
     private final Paint paint_5x5 = new Paint();
     private final GameLogic_5x5 game_5x5;
     private int cellSize_5x5;
-    private int[] winType_5x5; // [row, col, type]
-    private int startRow, startCol, endRow, endCol;
 
     public TicTacToyBoard_5x5(Context context, @Nullable AttributeSet attrs_5x5) {
         super(context, attrs_5x5);
@@ -167,17 +165,42 @@ public class TicTacToyBoard_5x5 extends View {
             paint_5x5.setColor(winningLineColor_5x5);
             paint_5x5.setStrokeWidth(20);
 
-            int[] winCoords = game_5x5.getWinningCoords(); // [startRow, startCol, endRow, endCol]
+            int[] winType = game_5x5.getWinType();
+            int row = winType[0];
+            int col = winType[1];
+            int type = winType[2];
 
-            int startRow = winCoords[0];
-            int startCol = winCoords[1];
-            int endRow = winCoords[2];
-            int endCol = winCoords[3];
+            float startX, startY, endX, endY;
+            float padding = cellSize_5x5 * 0.2f;
 
-            float startX = startCol * cellSize_5x5 + cellSize_5x5 * 0.5f;
-            float startY = startRow * cellSize_5x5 + cellSize_5x5 * 0.5f;
-            float endX = endCol * cellSize_5x5 + cellSize_5x5 * 0.5f;
-            float endY = endRow * cellSize_5x5 + cellSize_5x5 * 0.5f;
+            switch (type) {
+                case 1: // Horizontal
+                    startX = (col) * cellSize_5x5 + padding;
+                    startY = (row + 0.5f) * cellSize_5x5;
+                    endX = (col + 3) * cellSize_5x5 + cellSize_5x5 - padding;
+                    endY = startY;
+                    break;
+                case 2: // Vertical
+                    startX = (col + 0.5f) * cellSize_5x5;
+                    startY = (row) * cellSize_5x5 + padding;
+                    endX = startX;
+                    endY = (row + 3) * cellSize_5x5 + cellSize_5x5 - padding;
+                    break;
+                case 3: // Diagonal \ (top-left to bottom-right)
+                    startX = (col) * cellSize_5x5 + padding;
+                    startY = (row) * cellSize_5x5 + padding;
+                    endX = (col + 3) * cellSize_5x5 + cellSize_5x5 - padding;
+                    endY = (row + 3) * cellSize_5x5 + cellSize_5x5 - padding;
+                    break;
+                case 4: // Diagonal / (top-right to bottom-left)
+                    startX = col * cellSize_5x5 + cellSize_5x5 - padding;
+                    startY = row * cellSize_5x5 + padding;
+                    endX = (col - 3) * cellSize_5x5 + padding;
+                    endY = (row + 3) * cellSize_5x5 + cellSize_5x5 - padding;
+                    break;
+                default:
+                    return;
+            }
 
             canvas.drawLine(startX, startY, endX, endY, paint_5x5);
         }
@@ -193,9 +216,5 @@ public class TicTacToyBoard_5x5 extends View {
     public void resetGame_5x5() {
         game_5x5.resetGame_5x5();
         winningLine_5x5 = false;
-    }
-
-    public int[] getWinningCoords() {
-        return new int[]{startRow, startCol, endRow, endCol};
     }
 }
